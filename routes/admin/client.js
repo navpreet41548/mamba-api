@@ -13,7 +13,7 @@ router.get("/getClient/:id", adminProtected, async (req, res) => {
     res.json({ client: null, err: err, message: "Something Went Wrong" });
   }
 });
-router.get("/getClients", adminProtected, async (req, res) => {
+router.get("/getClients", async (req, res) => {
   try {
     const client = await Client.find({});
     res.json({
@@ -26,7 +26,7 @@ router.get("/getClients", adminProtected, async (req, res) => {
   }
 });
 
-router.post("/addClient", adminProtected, async (req, res) => {
+router.post("/addClient", async (req, res) => {
   const salt = bcrypt.genSaltSync();
   console.log(req.body);
   const password = await bcrypt.hash(req.body.loginPassword, salt);
