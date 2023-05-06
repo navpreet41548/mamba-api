@@ -29,7 +29,7 @@ const clientSchema = mongoose.Schema({
   primaryProvince: {
     type: String,
   },
-  primaryZipcode: {
+  primaryZipCode: {
     type: String,
   },
 
@@ -39,13 +39,14 @@ const clientSchema = mongoose.Schema({
   billingLastName: {
     type: String,
   },
-  Email: {
+  billingEmail: {
     type: String,
   },
   billingBusinessName: {
     type: String,
     // required: [true, "Business Name can't be Empty!"],
   },
+
   billingPhoneNumber: {
     type: String,
   },

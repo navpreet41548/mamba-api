@@ -24,14 +24,14 @@ router.get("/getUsers", adminProtected, async (req, res) => {
 });
 
 router.post("/addUser", adminProtected, async (req, res) => {
-  const salt = bcrypt.genSaltSync();
-  const password = await bcrypt.hash(req.body.password, salt);
+  // const salt = bcrypt.genSaltSync();
+  // const password = await bcrypt.hash(req.body.password, salt);
   const newUser = new User({
     name: req.body.name,
     email: req.body.email,
     accessLevel: req.body.accessLevel,
     active: req.body.active,
-    password: password,
+    password: req.body.password,
   });
 
   const savedUser = await newUser.save();
@@ -41,8 +41,8 @@ router.post("/addUser", adminProtected, async (req, res) => {
 router.put("/updateUser/:id", adminProtected, async (req, res) => {
   const id = req.params.id;
   try {
-    const salt = bcrypt.genSaltSync();
-    const password = await bcrypt.hash(req.body.password, salt);
+    // const salt = bcrypt.genSaltSync();
+    // const password = await bcrypt.hash(req.body.password, salt);
     const updatedUser = await User.findByIdAndUpdate(
       id,
       {
@@ -50,7 +50,7 @@ router.put("/updateUser/:id", adminProtected, async (req, res) => {
         email: req.body.email,
         accessLevel: req.body.accessLevel,
         active: req.body.active,
-        password: password,
+        password: req.body.password,
       },
       {
         new: true,

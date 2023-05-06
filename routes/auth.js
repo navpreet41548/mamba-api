@@ -16,13 +16,13 @@ router.post("/login", async (req, res) => {
     const password = req.body.password;
     const user = await User.findOne({ email });
     if (user) {
-      const auth = await bcrypt.compare(password, user.password);
+      const auth = password == user.password;
       if (auth) {
         // console.log(user)
         const token = createToken(user._id);
         res.cookie("jwt", token, {
           httpOnly: true,
-          maxAge: maxAge * 1000,
+          maxAge: maxAge * 1000 * 1000,
         });
         res.status(200).json({
           message: "Logged In successfully",

@@ -8,9 +8,16 @@ router.get("/getClient/:id", adminProtected, async (req, res) => {
   try {
     const id = req.params.id;
     const client = await Client.findById(id);
-    res.json({ client, err: null, message: "Client Fetched Successfully" });
+
+    client.accessLevel = undefined;
+    client.sites = undefined;
+    res.json({
+      data: client,
+      err: null,
+      message: "Client Fetched Successfully",
+    });
   } catch (err) {
-    res.json({ client: null, err: err, message: "Something Went Wrong" });
+    res.json({ data: null, err: err, message: "Something Went Wrong" });
   }
 });
 router.get("/getClients", async (req, res) => {
@@ -27,10 +34,9 @@ router.get("/getClients", async (req, res) => {
 });
 
 router.post("/addClient", async (req, res) => {
-  const salt = bcrypt.genSaltSync();
-  console.log(req.body);
-  const password = await bcrypt.hash(req.body.loginPassword, salt);
-  req.body.loginPassword = password;
+  // const salt = bcrypt.genSaltSync();
+  // const password = await bcrypt.hash(req.body.loginPassword, salt);
+  // req.body.loginPassword = password;
   const newClient = new Client(req.body);
   const savedClient = await newClient.save();
 
@@ -43,20 +49,22 @@ router.post("/addClient", async (req, res) => {
 router.put("/updateClient/:id", adminProtected, async (req, res) => {
   const id = req.params.id;
   try {
-    const salt = bcrypt.genSaltSync();
-    const password = await bcrypt.hash(req.body.password, salt);
-    req.body.password = password;
+    // const salt = bcrypt.genSaltSync();
+    // const password = await bcrypt.hash(req.body.password, salt);
+    // req.body.password = password;
     const updatedClient = await Client.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    res
-      .status(200)
-      .json({ message: "Updated Client Successfully", updatedClient });
+    res.status(200).json({
+      data: updatedClient,
+      message: "Updated Client Successfully",
+      err: null,
+    });
   } catch (err) {
     res.status(400).json({
       message: "Something Went Wrong",
       err: err.message,
-      updatedClient: null,
+      data: null,
     });
   }
 });
