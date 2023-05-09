@@ -6,6 +6,7 @@ const adminUserRoute = require("./routes/admin/user");
 const adminClientRoute = require("./routes/admin/client");
 const publicGuardRoute = require("./routes/public/guard");
 const adminGuardRoute = require("./routes/admin/guard");
+const adminSiteRoute = require("./routes/admin/site");
 const authRoute = require("./routes/auth");
 const PORT = 80 || process.env.PORT;
 const cors = require("cors");
@@ -21,6 +22,7 @@ app.use("/admin/user", adminUserRoute);
 app.use("/auth", authRoute);
 app.use("/admin/client", adminClientRoute);
 app.use("/admin/guard", adminGuardRoute);
+app.use("/admin/site", adminSiteRoute);
 app.use("/public", publicGuardRoute);
 
 app.listen(PORT, () => {

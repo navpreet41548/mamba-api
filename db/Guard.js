@@ -1,12 +1,20 @@
 const mongoose = require("mongoose");
 
 const guardSchema = mongoose.Schema({
-  guardName: String,
+  guardFirstName: String,
+  guardLastName: String,
   guardEmail: String,
-  guardContact: String,
-  guardPassword: String,
-  currentSite: String,
-  licenses: [{ licenseName: String, expDate: String }],
+  guardPhoneNumber: String,
+  loginPassword: String,
+  currentSite: { type: mongoose.Schema.Types.ObjectId, ref: "Site" },
+  licenses: [
+    {
+      licenseName: String,
+      licenseNumber: String,
+      issueDate: String,
+      expDate: String,
+    },
+  ],
   location: String,
   active: Boolean,
   request: {

@@ -32,6 +32,9 @@ const clientSchema = mongoose.Schema({
   primaryZipCode: {
     type: String,
   },
+  primaryCountry: {
+    type: String,
+  },
 
   billingFirstName: {
     type: String,
@@ -62,7 +65,10 @@ const clientSchema = mongoose.Schema({
   billingProvince: {
     type: String,
   },
-  billingZipcode: {
+  billingZipCode: {
+    type: String,
+  },
+  billingCountry: {
     type: String,
   },
   contactFirstName: {
@@ -84,7 +90,7 @@ const clientSchema = mongoose.Schema({
   },
   loginEmail: String,
   loginPassword: String,
-  sites: [{ site: String }],
+  sites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Site" }],
   accessLevel: {
     type: Number,
     default: -1,
